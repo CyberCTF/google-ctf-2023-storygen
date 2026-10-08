@@ -1,0 +1,144 @@
+{
+  "generated_by_isoloom": "from isoloom.yml; don't edit: change the spec and run `isoloom generate` (`isoloom check` fails when this file is out of date)",
+  "resolved_version": 1,
+  "name": "google-ctf-2023-storygen",
+  "instance": null,
+  "inputs": [],
+  "networks": {
+    "lab": {
+      "cidr": "10.60.178.0/24",
+      "docker_cidr": "10.60.178.0/24",
+      "internet": false,
+      "gateway": null,
+      "gateway_address": "10.60.178.1",
+      "router": null,
+      "controller": "10.60.178.253"
+    }
+  },
+  "reach": [],
+  "machines": {
+    "challenge": {
+      "access": false,
+      "supplied": false,
+      "shapes": [
+        "docker"
+      ],
+      "arch": "amd64",
+      "os": null,
+      "windows": false,
+      "addresses": {
+        "lab": "10.60.178.10"
+      },
+      "docker_addresses": {
+        "lab": "10.60.178.10"
+      },
+      "services": [
+        {
+          "port": 1337,
+          "name": "challenge",
+          "http": false,
+          "publish": 1337
+        }
+      ],
+      "depends_on": [],
+      "inputs": [],
+      "volumes": {},
+      "resources": {
+        "cpus": 1,
+        "memory_mb": 512,
+        "disk_gb": 20
+      },
+      "gateway_of": [],
+      "routes": [],
+      "default_gateway": null,
+      "offline": true
+    }
+  },
+  "start_order": [
+    "challenge"
+  ],
+  "clones": {},
+  "tools": {},
+  "groups": {},
+  "router": null,
+  "controller": {
+    "addresses": {
+      "lab": "10.60.178.253"
+    }
+  },
+  "published": [
+    {
+      "machine": "challenge",
+      "port": 1337,
+      "host_port": 1337
+    }
+  ],
+  "targets": {
+    "possible": [
+      "docker",
+      "hosted",
+      "docker-vm",
+      "cloud-docker",
+      "kubernetes"
+    ],
+    "generated": [
+      "docker",
+      "hosted",
+      "docker-vm",
+      "cloud-docker",
+      "kubernetes"
+    ],
+    "refused": {},
+    "not_possible": {
+      "hybrid": "only when some machines are containers and others are VMs",
+      "vagrant": "needs `vm:` on challenge",
+      "proxmox": "needs `vm:` on challenge",
+      "cloud-vm": "needs `vm:` on challenge",
+      "external": "needs `external:` on challenge"
+    }
+  },
+  "checks": {
+    "default_position": "networks",
+    "positions": [
+      {
+        "position": "networks",
+        "machine": null,
+        "runner": "isoloom-check",
+        "checks": [
+          {
+            "name": "the challenge service answers",
+            "derived": false,
+            "kind": "tcp",
+            "target": "challenge:1337",
+            "expect": "open",
+            "wait": 120
+          },
+          {
+            "name": "the story generator asks for the player's name",
+            "derived": false,
+            "kind": "script",
+            "target": "checks/probe.sh",
+            "expect": "",
+            "wait": 60
+          }
+        ]
+      },
+      {
+        "position": "challenge",
+        "machine": "challenge",
+        "runner": "isoloom-check-challenge",
+        "checks": [
+          {
+            "name": "no internet from challenge",
+            "derived": true,
+            "kind": "http",
+            "target": "http://1.1.1.1/",
+            "expect": "blocked",
+            "wait": 0
+          }
+        ]
+      }
+    ]
+  },
+  "message": "Storygen (Google, 2023) answers at `nc localhost 1337`.\nYour answers end up in a generated script: what does its first line decide?\n"
+}

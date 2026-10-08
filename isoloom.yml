@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://www.isoloom.com/schema/v1.json
+# Storygen (Google's 2023 security competition, by Google; a pwn challenge) as an Isoloom spec:
+# a story generator that writes the player's answers into a bash script and runs it.
+# The challenge folder 2023/quals/pwn-storygen of Google's challenge archive is vendored unchanged in build/challenge/app/ and built by the overlay Dockerfile next to it.
+# `isoloom generate`, then `isoloom run docker`.
+version: 1
+name: google-ctf-2023-storygen
+
+networks:
+  lab: { cidr: 10.60.178.0/24, internet: false }
+
+machines:
+  challenge:
+    networks: { lab: 10 }
+    services: [{ port: 1337, name: challenge, publish: 1337 }]
+    resources: { cpus: 1, memory_mb: 512 }
+    privileged: true  # the image's setup script mounts /proc and nsjail creates namespaces
+    docker:
+      build: build/challenge
+
+checks:
+  - name: the challenge service answers
+    tcp: challenge:1337
+    wait: 120
+  - name: the story generator asks for the player's name
+    script: checks/probe.sh
+    wait: 60
+
+message: |
+  Storygen (Google, 2023) answers at `nc localhost {{ machines.challenge.services.0.publish }}`.
+  Your answers end up in a generated script: what does its first line decide?
