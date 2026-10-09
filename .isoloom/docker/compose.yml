@@ -9,6 +9,9 @@ services:
   challenge:
     build:
       context: ../../build/challenge
+      labels:
+        isoloom.managed: 'true'
+        isoloom.environment: google-ctf-2023-storygen
     image: isoloom/google-ctf-2023-storygen-challenge
     platform: linux/amd64
     privileged: true
@@ -41,6 +44,8 @@ services:
           memory: 512M
     labels:
       isoloom.service.challenge: tcp:1337
+      isoloom.managed: 'true'
+      isoloom.environment: google-ctf-2023-storygen
     restart: unless-stopped
   challenge-routes:
     image: alpine:3.20
@@ -62,6 +67,9 @@ services:
       challenge:
         condition: service_started
     restart: unless-stopped
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: google-ctf-2023-storygen
   isoloom-check:
     image: curlimages/curl:8.11.1
     profiles:
@@ -83,6 +91,9 @@ services:
         condition: service_healthy
       challenge-routes:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: google-ctf-2023-storygen
   isoloom-check-challenge:
     image: curlimages/curl:8.11.1
     profiles:
@@ -98,6 +109,9 @@ services:
         condition: service_healthy
       challenge-routes:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: google-ctf-2023-storygen
   isoloom-probe-amd64:
     image: busybox:1.37.0-musl
     platform: linux/amd64
@@ -109,11 +123,20 @@ services:
     - isoloom-probe-amd64:/probe
     network_mode: none
     restart: no
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: google-ctf-2023-storygen
 networks:
   lab:
     ipam:
       config:
       - subnet: 10.60.178.0/24
         gateway: 10.60.178.1
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: google-ctf-2023-storygen
 volumes:
-  isoloom-probe-amd64: {}
+  isoloom-probe-amd64:
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: google-ctf-2023-storygen
