@@ -4,11 +4,5 @@
   "question": "Retrieve the flag from the challenge service.",
   "category": "PWN",
   "difficulty": 3,
-  "evidence_kind": "SECRET",
-  "capabilities": [
-    "shebang-injection",
-    "bash",
-    "command-injection",
-    "python"
-  ]
+  "evidence_kind": "SECRET"
 }
