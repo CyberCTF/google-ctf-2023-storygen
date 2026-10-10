@@ -1,0 +1,69 @@
+{
+  "objectives": [
+    {
+      "key": "main",
+      "title": "Run the flag program",
+      "prompt": "Make the generated story script run /get_flag with the right arguments and read its output.",
+      "check": {
+        "evidence": "SECRET",
+        "format": "CTF{%s}"
+      },
+      "dev": "CTF{dev-google-ctf-2023-storygen}",
+      "hints": [
+        "Your answers end up in a generated bash script.",
+        "What does the first line of a script decide?"
+      ],
+      "steps": [
+        {
+          "key": "interpreter",
+          "title": "Identify the interpreter",
+          "prompt": "Which shell runs the generated story script?",
+          "check": {
+            "answer": [
+              "bash",
+              "/bin/bash"
+            ]
+          }
+        },
+        {
+          "key": "line",
+          "title": "Find the deciding line",
+          "prompt": "What is the first line of a script that chooses its interpreter called?",
+          "check": {
+            "answer": [
+              "shebang",
+              "hashbang",
+              "sha-bang",
+              "#!",
+              "interpreter directive"
+            ]
+          }
+        },
+        {
+          "key": "class",
+          "title": "Name the vulnerability class",
+          "prompt": "What vulnerability class puts your input into that line?",
+          "check": {
+            "answer": [
+              "shebang injection",
+              "command injection",
+              "injection",
+              "code injection"
+            ]
+          }
+        },
+        {
+          "key": "target",
+          "title": "Find the target",
+          "prompt": "Which program prints the flag? (path)",
+          "check": {
+            "answer": [
+              "/get_flag",
+              "get_flag"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

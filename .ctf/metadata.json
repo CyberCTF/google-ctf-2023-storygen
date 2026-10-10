@@ -1,7 +1,7 @@
 {
   "title": "Google CTF 2023: Storygen",
   "description": "A story generator that asks for a name and writes a bash script to tell the story. A get_flag binary in / prints the flag.",
-  "question": "Retrieve the flag from the challenge service.",
+  "question": "Get the story generator to run /get_flag with the right arguments and read the flag.",
   "category": "PWN",
   "difficulty": 3,
   "evidence_kind": "SECRET"

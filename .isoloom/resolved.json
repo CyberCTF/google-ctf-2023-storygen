@@ -3,7 +3,9 @@
   "resolved_version": 1,
   "name": "google-ctf-2023-storygen",
   "instance": null,
-  "inputs": [],
+  "inputs": [
+    "CTF_FLAG_MAIN"
+  ],
   "networks": {
     "lab": {
       "cidr": "10.60.178.0/24",
@@ -41,8 +43,12 @@
         }
       ],
       "depends_on": [],
-      "inputs": [],
-      "volumes": {},
+      "inputs": [
+        "CTF_FLAG_MAIN"
+      ],
+      "volumes": {
+        "ctf": "/chroot"
+      },
       "resources": {
         "cpus": 1,
         "memory_mb": 512,

@@ -6,6 +6,9 @@
 version: 1
 name: google-ctf-2023-storygen
 
+# Given by the CyberCTF launcher: this player's flag. Without it the development flag.
+inputs: [CTF_FLAG_MAIN]
+
 networks:
   lab: { cidr: 10.60.178.0/24, internet: false }
 
@@ -15,8 +18,11 @@ machines:
     services: [{ port: 1337, name: challenge, publish: 1337 }]
     resources: { cpus: 1, memory_mb: 512 }
     privileged: true  # the image's setup script mounts /proc and nsjail creates namespaces
+    inputs: [CTF_FLAG_MAIN]
+    volumes: { ctf: /chroot }   # the flag, written by ctf/flag.sh at every start
     docker:
       build: build/challenge
+      init: [ctf/flag.sh]
 
 checks:
   - name: the challenge service answers
