@@ -1,8 +1,11 @@
 {
+  "project_name": "cyberlabs-google-ctf-2023-storygen",
+  "slug": "google-ctf-2023-storygen",
   "title": "Google CTF 2023: Storygen",
   "description": "A story generator that asks for a name and writes a bash script to tell the story. A get_flag binary in / prints the flag.",
-  "question": "Get the story generator to run /get_flag with the right arguments and read the flag.",
-  "category": "PWN",
+  "category": "pwn",
   "difficulty": 3,
-  "evidence_kind": "SECRET"
+  "evidence_kind": "SECRET",
+  "capabilities": [],
+  "question": "Get the story generator to run /get_flag with the right arguments and read the flag."
 }
