@@ -18,6 +18,7 @@ machines:
     networks: {lab: 10}
     resources: {cpus: 1, memory_mb: 512}
     privileged: true  # the image's setup script mounts /proc and nsjail creates namespaces
+    seal: best-effort  # privileged on a sealed (internet: false) network: the seal is advisory here
     volumes: {ctf: /chroot}     # the flag, written by ctf/flag.sh at every start
     ports:
       challenge:
